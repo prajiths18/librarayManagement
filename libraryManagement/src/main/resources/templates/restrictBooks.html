@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Limit Warning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8d7da;
+        }
+        .warning-box {
+            background-color: #721c24;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        .warning-box h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .return-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #f5c6cb;
+            color: #721c24;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .return-btn:hover {
+            background-color: #f1b0b7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="warning-box">
+        <h2>You have taken more than 2 books, please return one first!</h2>
+        <a href="/user/userbooksdetails" class="return-btn">Return a Book</a>
+    </div>
+
+</body>
+</html>

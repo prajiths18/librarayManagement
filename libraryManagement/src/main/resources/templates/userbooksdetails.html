@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Books Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            width: 80%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .tab {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            width: 50%;
+        }
+        .tab:hover {
+            background: #0056b3;
+        }
+        .tab.active {
+            background: #0056b3;
+        }
+
+        /* Content Section */
+        .content-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 1000px;
+            display: none;
+        }
+        .content-container.active {
+            display: block;
+        }
+
+        /* Card Style */
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .book-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+        }
+        .book-card h3 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .book-card p {
+            color: #666;
+        }
+        .btn {
+            padding: 8px 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .btn-take {
+            background-color: #28a745;
+        }
+        .btn-take:hover {
+            background-color: #218838;
+        }
+        .btn-logout {
+            background-color: #dc3545;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+        .not-available {
+            color: red;
+            font-weight: bold;
+        }			table {
+			    width: 100%;
+			    border-collapse: collapse;
+			    margin-top: 20px;
+			}
+			th, td {
+			    border: 1px solid #ddd;
+			    padding: 12px;
+			    text-align: left;
+			}
+			th {
+			    background-color: #007bff;
+			    color: white;
+			}
+			tr:nth-child(even) {
+			    background-color: #f2f2f2;
+			}
+
+    </style>
+	
+</head>
+<body>
+
+    <a th:href="@{/logout}" class="btn btn-logout">Logout</a>
+
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+        <div class="tab active" onclick="switchTab('myBooks')">My Books</div>
+        <div class="tab" onclick="switchTab('bookDetails')">Available Books</div>
+    </div>
+
+	<div id="myBooks" class="content-container active">
+	    <h2>My Books</h2>
+	    <table>
+	        <thead>
+	            <tr>
+	                <th>Title</th>
+	                <th>Author</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr th:each="mybook : ${myBooks}">
+	                <td th:text="${mybook.bookName}"></td>
+	                <td th:text="${mybook.author}"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
+
+    <!-- Available Books Section -->
+    <div id="bookDetails" class="content-container">
+        <h2>Available Books</h2>
+        <div class="book-container">
+            <div class="book-card" th:each="book : ${books}">
+                <h3 th:text="${book.bookName}"></h3>
+                <p th:text="'Author: ' + ${book.author}"></p>
+                <form th:if="${book.bookholder == 'admin'}" th:action="@{/user/userbooksdetails}" method="post">
+                    <input type="hidden" name="bookName" th:value="${book.bookName}" />
+                    <button type="submit" class="btn btn-take">Take Book</button>
+                </form>
+                <span th:unless="${book.bookholder == 'admin'}" class="not-available">Not Available</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Tab Switching -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

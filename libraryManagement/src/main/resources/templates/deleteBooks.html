@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #d9534f;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        .btn-delete {
+            background-color: #d9534f;
+        }
+        .btn-delete:hover {
+            background-color: #c9302c;
+        }
+        .btn-admin {
+            background-color: #007bff;
+        }
+        .btn-admin:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Delete Book</h2>
+        <form action="deleteBooks" method="POST">
+            <label for="bookName">Enter The Book Name:</label>
+            <input type="text" id="bookName" name="bookName" required>
+            
+            <button type="submit" class="btn btn-delete">Delete the Book</button>
+        </form>
+
+        <!-- Button to Redirect to Admin Page -->
+        <a href="/admin" class="btn btn-admin">Go to Admin Page</a>
+    </div>
+</body>
+</html>
